@@ -1,5 +1,8 @@
+    
 name: Autograding Tests
-'on': {}
+'on':
+- push
+- repository_dispatch
 permissions:
   checks: write
   actions: read
@@ -23,6 +26,10 @@ jobs:
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
+        TEST_RESULTS: "${{steps.test.outputs.result}}"
+      with:
+        runners: test
+
         TEST_RESULTS: "${{steps.test.outputs.result}}"
       with:
         runners: test
